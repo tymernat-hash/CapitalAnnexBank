@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital Annex Bank — Admin Dashboard">
+
+<style>
+body{
+  background:#f5f6fb;
+  font-family:Arial;
+}
+
+.topbar{
+  background:#0f255b;
+  color:#fff;
+  padding:14px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+section{
+  max-width:1000px;
+  margin:20px auto;
+  background:#fff;
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 10px 24px rgba(0,0,0,.15);
+}
+
+h3{margin-bottom:10px}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+td,th{
+  border-bottom:1px solid #e5e7ef;
+  padding:10px 6px;
+}
+
+button{
+  border:none;
+  padding:6px 12px;
+  border-radius:10px;
+  background:#1c63ff;
+  color:#fff;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <h2>Admin Dashboard</h2>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<section>
+  <h3>Registered Users</h3>
+  <table id="usersTable"></table>
+</section>
+
+<section>
+  <h3>Transactions</h3>
+  <table id="txTable"></table>
+</section>
+
+<script>
+if(localStorage.getItem("admin_logged_in") !== "true"){
+  window.location.href = "admin-dashboard.html";
+}
+
+// Fake users (from signup)
+const name = localStorage.getItem("user_name") || "No user yet";
+const email = localStorage.getItem("user_email") || "—";
+
+document.getElementById("usersTable").innerHTML = `
+<tr><th>Name</th><th>Email</th></tr>
+<tr><td>${name}</td><td>${email}</td></tr>
+`;
+
+// Fake transactions storage
+const tx = JSON.parse(localStorage.getItem("transactions") || "[]");
+
+document.getElementById("txTable").innerHTML = `
+<tr><th>Type</th><th>Amount</th><th>Status</th></tr>
+${tx.map(t=>`
+<tr>
+<td>${t.type}</td>
+<td>$${t.amount}</td>
+<td>${t.status}</td>
+</tr>`).join("")}
+`;
+
+function logout(){
+  localStorage.removeItem("admin_logged_in");
+  window.location.href = "admin-dashboard.html";
+}
+</script>
+
+</body>
+</html>
+

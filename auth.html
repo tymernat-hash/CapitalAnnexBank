@@ -56,7 +56,6 @@
       <h1 class="logo">Capital Annex Bank</h1>
       <nav>
         <a href="index.html">Home</a>
-        <a href="profile.html" id="profileBtn">Profile ⌄</a>
         <button class="btn-primary">Help</button>
       </nav>
     </div>
@@ -70,13 +69,14 @@
       </div>
 
       <!-- LOGIN -->
-      <form id="loginForm" class="auth-form">
-        <input type="email" placeholder="Email address" required />
-        <input type="password" placeholder="Password" required />
-        <label><input type="checkbox" /> Remember me</label>
-        <button class="btn-primary" type="submit">Log In</button>
-        <p class="muted">Forgot password? <span class="link">Reset</span></p>
-      </form>
+<form id="loginForm" class="auth-form">
+  <input id="loginEmail" type="email" placeholder="Email address" required />
+  <input id="loginPassword" type="password" placeholder="Password" required />
+  <label><input type="checkbox" /> Remember me</label>
+  <button class="btn-primary" type="submit">Log In</button>
+  <p class="muted">Forgot password? <span class="link">Reset</span></p>
+</form>
+
 
       <!-- SIGNUP -->
       <form id="signupForm" class="auth-form" style="display:none;">
@@ -118,40 +118,56 @@
     }
 
     // DEMO redirect — replace with real backend later
-    loginForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert("Logged in successfully!");
-      window.location.href = "dashboard.html";
-    });
+   loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-signupForm.addEventListener("submit", (e) => {
+  const email = document.getElementById("loginEmail").value;
+  const pass  = document.getElementById("loginPassword").value;
+
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+  const user = users.find(u => u.email === email && u.password === pass);
+
+  if (!user) {
+    alert("Invalid email or password");
+    return;
+  }
+
+  // save the logged-in user's name
+  localStorage.setItem("user_name", user.name);
+  localStorage.setItem("user_email", user.email);
+
+  alert("Logged in successfully!");
+  window.location.href = "dashboard.html";
+});
+
+
+    signupForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const name  = document.getElementById("signupName").value;
   const email = document.getElementById("signupEmail").value;
   const pass  = document.getElementById("signupPassword").value;
 
-  // Get existing users (or empty list)
+  // get existing users
   const users = JSON.parse(localStorage.getItem("users") || "[]");
 
-  // Add new user
   users.push({
     name,
     email,
-    password: pass,        // (for demo only — not secure)
-    phone: "",
-    account: Date.now().toString().slice(-10),
-    balance: 0,
-    transactions: []
+    password: pass
   });
 
-  // Save back
   localStorage.setItem("users", JSON.stringify(users));
 
-  alert("Account created!");
-  window.location.href = "profile.html";
-});
-</script>
+  // save active user
+  localStorage.setItem("user_name", name);
 
+  alert("Account created!");
+  window.location.href = "dashboard.html";
+});
+
+
+  </script>
 </body>
 </html>

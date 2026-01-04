@@ -26,8 +26,10 @@
 
 
 <div class="card">
-  </p><strong>Name:</strong> <span id="profileName"></span></p>
-  <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+  <p><strong>Name:</strong> <span id="profileName">—</span></p>
+  <p><strong>Email:</strong> <span id="profileEmail">—</span></p>
+</div>
+
 </div>
 
 <hr>
@@ -162,3 +164,12 @@ button{
 }
 button:hover{opacity:.9;}
 </style>
+
+<script>
+  const name  = localStorage.getItem("user_name")  || "Customer";
+  const email = localStorage.getItem("user_email") || "Customer";
+
+  document.getElementById("profileName").textContent  = name;
+  document.getElementById("profileEmail").textContent = email;
+</script>
+

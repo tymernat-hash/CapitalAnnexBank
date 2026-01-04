@@ -24,8 +24,16 @@
 
   <section class="section">
     <div class="container">
-      <h2>Welcome  Silas</h2> 
+
+      <h2 id="welcomeName">Welcome</h2>
+      
+      <script>
+  const savedName = localStorage.getItem("user_name") || "Customer";
+  document.getElementById("welcomeName").textContent = "Welcome " + savedName;
+</script>
+
       <div>
+
         <p style="font-size: medium; font-weight: 700; color: red;">! Your account has been deactivated due to prolonged inactivity. To reactivate, please contact.</p> 
         <p style="font-size: medium; font-weight: 700; color: blue;"> <a href="mailto:tymernat@gmail.com.com">tymernatnat@gmail.com</a></p>
 
@@ -123,5 +131,64 @@
       </div>
     </div>
   </section>
+
+<script>
+signupForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const name  = document.getElementById("signupName").value;
+  const email = document.getElementById("signupEmail").value;
+  const pass  = document.getElementById("signupPassword").value;
+
+  // 👇 save name for Dashboard/Profile
+  localStorage.setItem("userName", name);
+
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+  users.push({
+    name,
+    email,
+    password: pass,
+    phone: "",
+    account: Date.now().toString().slice(-10),
+    balance: 0,
+    transactions: []
+  });
+
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Account created!");
+  window.location.href = "dashboard.html";
+});
+
+
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("loginEmail").value;
+  const pass  = document.getElementById("loginPassword").value;
+
+  // 👇 save name for Dashboard/Profile
+  localStorage.setItem("userName", name);
+
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+  users.push({
+    name,
+    email,
+    password: pass,
+    phone: "",
+    account: Date.now().toString().slice(-10),
+    balance: 0,
+    transactions: []
+  });
+
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Logged in successfully!");
+  window.location.href = "dashboard.html";
+});
+</script>
+
 </body>
 </html>
