@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capital Annex Bank — Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <h1 class="logo">Capital Annex Bank</h1>
+      <nav class="nav">
+
+  <div class="dropdown" id="profileMenu">
+    <a href="profile.html">Profile</a>
+    <a href="index.html">Logout</a>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2>Welcome  Silas</h2> 
+      <div>
+        <p style="font-size: medium; font-weight: 700; color: red;">! Your account has been deactivated due to prolonged inactivity. To reactivate, please contact.</p> 
+        <p style="font-size: medium; font-weight: 700; color: blue;"> <a href="mailto:tymernat@gmail.com.com">tymernatnat@gmail.com</a></p>
+
+      </div>
+      <div class="card" style="margin-top:15px;">
+        <h3>Account Balance</h3>
+        <p style="font-size:28px; font-weight:700;">£3,800,000.00</p>
+        <p class="muted">Updated just now</p>
+      </div>
+
+      <hr>
+
+      <a href="send-money.html" class="btn-send">
+        💸 Send Money
+    </a> 
+    
+    <a href="transactions.html" class="btn-history">
+        📜 Transaction History
+    </a>
+
+    <style>.btn-send{
+  display:inline-block;
+  padding:12px 20px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#0f255b,#1c63ff);
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  letter-spacing:.2px;
+  border:1px solid rgba(255,255,255,.18);
+
+  /* 3D look */
+  box-shadow:
+    0 10px 18px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.25);
+
+  transition:.25s ease;
+}
+
+.btn-send:hover{
+  transform:translateY(-3px);
+  box-shadow:
+    0 18px 28px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,255,255,.3);
+}
+
+.btn-send:active{
+  transform:translateY(1px) scale(.98);
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.22),
+    inset 0 2px 4px rgba(0,0,0,.25);
+}
+
+.btn-history{
+  display:inline-block;
+  padding:12px 20px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#0f255b,#1c63ff);
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  letter-spacing:.25px;
+
+  border:1px solid rgba(255,255,255,.18);
+
+  /* 3D depth */
+  box-shadow:
+    0 12px 20px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.25);
+
+  transition:.28s ease;
+}
+
+.btn-history:hover{
+  transform:translateY(-3px);
+  box-shadow:
+    0 18px 32px rgba(0,0,0,.33),
+    inset 0 1px 0 rgba(255,255,255,.3);
+}
+
+.btn-history:active{
+  transform:translateY(1px) scale(.98);
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.22),
+    inset 0 2px 4px rgba(0,0,0,.28);
+}
+
+</style>
+
+        
+      <div class="grid-3" style="margin-top:20px;">
+        <div class="card"><h4>Send Money</h4><p>Instant transfers worldwide.</p></div>
+        <div class="card"><h4>Transactions</h4><p>View recent activity.</p></div>
+        <div class="card"><h4>Savings</h4><p>Track your goals.</p></div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

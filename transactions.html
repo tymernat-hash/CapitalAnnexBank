@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capital Annex Bank — Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <h1 class="logo">Capital Annex Bank</h1>
+      <nav class="nav">
+
+  <div class="dropdown" id="profileMenu">
+    <a href="profile.html">Profile</a>
+    <a href="index.html">Logout</a>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+<h1>TRANSACTIONS</h1> <p style="font-size: medium; font-weight: 700; color: rgb(12, 2, 39);"
+
+
+<!-- TRANSACTION HISTORY -->
+<h3>History</h3>
+
+<table border="1" width="100%" id="txTable">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Balance</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+
+<hr>
+
+<hr>
+
+<a href="dashboard.html" class="btn-primary">BACK</a>
+
+<script>
+
+/* -------- TRANSACTIONS (DEMO) ---------- */
+/* You can replace this with real data later */
+const demoTx = JSON.parse(localStorage.getItem("transactions")) || [
+  { date: "2004-12-30", desc: "Deposit", amount: "+$3,500,000.00", balance: "$5,150,000.00" },
+  { date: "2005-12-28", desc: "ATM Withdrawal", amount: "-$120,000.00", balance: "$2,100,000.00" },
+  { date: "2007-12-25", desc: "Transfer to John", amount: "-$10.000", balance: "$15,500.00" }
+];
+
+localStorage.setItem("transactions", JSON.stringify(demoTx));
+
+const tbody = document.querySelector("#txTable tbody");
+
+demoTx.forEach(tx => {
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${tx.date}</td>
+    <td>${tx.desc}</td>
+    <td>${tx.amount}</td>
+    <td>${tx.balance}</td>
+  `;
+  tbody.appendChild(row);
+});
+</script>
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+
+fetch(`http://localhost:4000/api/history/${user.email}`)
+.then(res => res.json())
+.then(list => {
+  const box = document.getElementById("history");
+
+  box.innerHTML = list.map(t => `
+    <li>
+      <strong>${t.type.toUpperCase()}</strong> — ${t.amount} 
+      <small>${t.status}</small>
+    </li>
+  `).join("");
+});
+</script>

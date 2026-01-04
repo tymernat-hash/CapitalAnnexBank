@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capital Annex Bank — Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <h1 class="logo">Capital Annex Bank</h1>
+      <nav class="nav">
+
+  <div class="dropdown" id="profileMenu">
+    <a href="transactions.html">Transactions</a>
+    <a href="index.html">Logout</a>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+<h2>My Profile</h2> <p style="font-size: medium; font-weight: 700; color: rgb(12, 2, 39);"
+
+
+<div class="card">
+  </p><strong>Name:</strong> <span id="profileName"></span></p>
+  <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+</div>
+
+<hr>
+
+<!-- EDIT PROFILE -->
+<h3>Edit Profile</h3>
+<p>Full Name</p>
+<div class="card">
+  <a New Name></a><p style="font-size: medium; font-weight: 700; background-color: rgb(249, 248, 250);"></p>
+  <input id="editName" type="text" placeholder="Enter new name">
+
+  <button onclick="saveProfile()">Save Changes</button>
+</div>
+
+<hr>
+
+<!-- CHANGE PASSWORD -->
+<h3>Change Password</h3>
+<div class="card">
+  <input id="oldPass" type="password" placeholder="Current password">
+  <input id="newPass" type="password" placeholder="New password">
+  <input id="confirmPass" type="password" placeholder="Confirm new password">
+
+  <button onclick="changePassword()">Update Password</button>
+</div>
+
+<hr>
+
+<hr>
+
+<a href="dashboard.html" class="btn-primary">BACK</a>
+
+<script>
+/* -------- LOAD PROFILE ON PAGE ---------- */
+document.getElementById("profileName").innerText =
+  localStorage.getItem("user_name") || "Not set";
+
+document.getElementById("profileEmail").innerText =
+  localStorage.getItem("user_email") || "Not set";
+
+/* -------- EDIT PROFILE ---------- */
+function saveProfile() {
+  const newName = document.getElementById("editName").value;
+
+  if (!newName) return alert("Enter a name first.");
+
+  localStorage.setItem("user_name", newName);
+  document.getElementById("profileName").innerText = newName;
+
+  alert("Profile updated.");
+}
+
+/* -------- CHANGE PASSWORD ---------- */
+function changePassword() {
+  const oldPass = document.getElementById("oldPass").value;
+  const newPass = document.getElementById("newPass").value;
+  const confirm = document.getElementById("confirmPass").value;
+
+  const saved = localStorage.getItem("user_password");
+
+  if (saved && saved !== oldPass) return alert("Current password is incorrect.");
+  if (newPass.length < 6) return alert("Password must be at least 6 characters.");
+  if (newPass !== confirm) return alert("Passwords do not match.");
+
+  localStorage.setItem("user_password", newPass);
+  alert("Password changed successfully.");
+}
+
+/* -------- TRANSACTIONS (DEMO) ---------- */
+/* You can replace this with real data later */
+const demoTx = JSON.parse(localStorage.getItem("transactions")) || [
+  { date: "2004-12-30", desc: "Deposit", amount: "+$500,000.00", balance: "$1500" },
+  { date: "2005-12-28", desc: "ATM Withdrawal", amount: "-$120,000.00", balance: "$1000" },
+  { date: "2007-12-25", desc: "Transfer to John", amount: "-$10.000", balance: "$1120" }
+];
+
+localStorage.setItem("transactions", JSON.stringify(demoTx));
+
+const tbody = document.querySelector("#txTable tbody");
+
+demoTx.forEach(tx => {
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${tx.date}</td>
+    <td>${tx.desc}</td>
+    <td>${tx.amount}</td>
+    <td>${tx.balance}</td>
+  `;
+  tbody.appendChild(row);
+});
+</script>
+
+<style>
+:root {
+  --navy: #071a3d;
+  --blue: #0f4c81;
+  --teal: #1bcfb4;
+  --gray: #f4f6fb;
+}
+
+* { box-sizing: border-box; }
+
+h2 {
+  margin: 0;
+  font-family: "Inter", system-ui, Arial, sans-serif;
+  color: #1c043b;
+  background: white;
+}
+
+.container { width: 92%; max-width: 1100px; margin: 0 auto; }
+
+.navbar {
+  background: var(--navy);
+  color: white;
+  position: sticky;
+  top: 0;
+}
+.card{
+  background:#032950;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+button{
+  margin-top:6px;
+  padding:8px 12px;
+  border-radius:8px;
+  border:none;
+  background:#0f255b;
+  color:white;
+  cursor:pointer;
+}
+button:hover{opacity:.9;}
+</style>

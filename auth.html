@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capital Annex Bank — Login / Create Account</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .auth-wrapper {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, #081b42, #0f255b);
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 16px 30px rgba(0,0,0,.15);
+    }
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      background: #f1f3fb;
+      overflow: hidden;
+    }
+    .auth-tab {
+      padding: 10px 0;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      color: #4a4f63;
+    }
+    .auth-tab.active {
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      color: #fff;
+    }
+    .auth-form { display: grid; gap: 10px; }
+    .auth-form input {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #d9dce8;
+    }
+    .muted { font-size: 13px; color: #6b7280; text-align: center; }
+    .link { color: var(--blue); cursor: pointer; }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <h1 class="logo">Capital Annex Bank</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="profile.html" id="profileBtn">Profile ⌄</a>
+        <button class="btn-primary">Help</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <div id="loginTab" class="auth-tab active">Log In</div>
+        <div id="signupTab" class="auth-tab">Create Account</div>
+      </div>
+
+      <!-- LOGIN -->
+      <form id="loginForm" class="auth-form">
+        <input type="email" placeholder="Email address" required />
+        <input type="password" placeholder="Password" required />
+        <label><input type="checkbox" /> Remember me</label>
+        <button class="btn-primary" type="submit">Log In</button>
+        <p class="muted">Forgot password? <span class="link">Reset</span></p>
+      </form>
+
+      <!-- SIGNUP -->
+      <form id="signupForm" class="auth-form" style="display:none;">
+        <input id="signupName" type="text" placeholder="Full name" required />
+        <input id="signupEmail" type="email" placeholder="Email address" required />
+        <input id="signupPassword" type="password" placeholder="Create password" required />
+        <input type="password" placeholder="Confirm password" required />
+  <button class="btn-primary" type="submit">Create Account</button>
+
+  <p class="muted">
+    Already have an account?
+    <span class="link" onclick="switchToLogin()">Log in</span>
+  </p>
+</form>
+
+    </div>
+  </div>
+
+  <script>
+    const loginTab = document.getElementById("loginTab");
+    const signupTab = document.getElementById("signupTab");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+
+    loginTab.onclick = switchToLogin;
+    signupTab.onclick = switchToSignup;
+
+    function switchToLogin() {
+      loginTab.classList.add("active");
+      signupTab.classList.remove("active");
+      loginForm.style.display = "grid";
+      signupForm.style.display = "none";
+    }
+    function switchToSignup() {
+      signupTab.classList.add("active");
+      loginTab.classList.remove("active");
+      signupForm.style.display = "grid";
+      loginForm.style.display = "none";
+    }
+
+    // DEMO redirect — replace with real backend later
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Logged in successfully!");
+      window.location.href = "dashboard.html";
+    });
+
+signupForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const name  = document.getElementById("signupName").value;
+  const email = document.getElementById("signupEmail").value;
+  const pass  = document.getElementById("signupPassword").value;
+
+  // Get existing users (or empty list)
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+  // Add new user
+  users.push({
+    name,
+    email,
+    password: pass,        // (for demo only — not secure)
+    phone: "",
+    account: Date.now().toString().slice(-10),
+    balance: 0,
+    transactions: []
+  });
+
+  // Save back
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Account created!");
+  window.location.href = "profile.html";
+});
+</script>
+
+</body>
+</html>
