@@ -190,5 +190,15 @@ loginForm.addEventListener("submit", (e) => {
 });
 </script>
 
+<script type="module">
+import { auth } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+onAuthStateChanged(auth, (user)=>{
+  if (!user) window.location.href = "auth.html";
+});
+</script>
+
+
 </body>
 </html>

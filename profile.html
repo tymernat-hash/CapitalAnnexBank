@@ -65,10 +65,10 @@
 <script>
 /* -------- LOAD PROFILE ON PAGE ---------- */
 document.getElementById("profileName").innerText =
-  localStorage.getItem("user_name") || "Not set";
+  localStorage.getItem("user_name") || "savedName";
 
 document.getElementById("profileEmail").innerText =
-  localStorage.getItem("user_email") || "Not set";
+  localStorage.getItem("user_email") || "savedEmail";
 
 /* -------- EDIT PROFILE ---------- */
 function saveProfile() {
@@ -170,6 +170,6 @@ button:hover{opacity:.9;}
   const email = localStorage.getItem("user_email") || "Customer";
 
   document.getElementById("profileName").textContent  = name;
-  document.getElementById("profileEmail").textContent = email;
+  document.getElementById("profileEmail").textContent = +   savedemail;
 </script>
 
